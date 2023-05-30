@@ -14,21 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+// +k8s:deepcopy-gen=package,register
+// +groupName=animal.skai.io
 
-import (
-	"k8s.io/klog"
-	"sigs.k8s.io/apiserver-runtime/pkg/builder"
-	// +kubebuilder:scaffold:resource-imports
-	animalv1alpha1 "github.com/guobingithub/cus-apiserver/pkg/apis/animal/v1alpha1"
-)
-
-func main() {
-	err := builder.APIServer.
-		// +kubebuilder:scaffold:resource-register
-		WithResource(&animalv1alpha1.Cat{}).
-		Execute()
-	if err != nil {
-		klog.Fatal(err)
-	}
-}
+// Package api is the internal version of the API.
+package animal

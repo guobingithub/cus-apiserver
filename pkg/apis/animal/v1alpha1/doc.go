@@ -14,21 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+// Api versions allow the api contract for a resource to be changed while keeping
+// backward compatibility by support multiple concurrent versions
+// of the same resource
 
-import (
-	"k8s.io/klog"
-	"sigs.k8s.io/apiserver-runtime/pkg/builder"
-	// +kubebuilder:scaffold:resource-imports
-	animalv1alpha1 "github.com/guobingithub/cus-apiserver/pkg/apis/animal/v1alpha1"
-)
-
-func main() {
-	err := builder.APIServer.
-		// +kubebuilder:scaffold:resource-register
-		WithResource(&animalv1alpha1.Cat{}).
-		Execute()
-	if err != nil {
-		klog.Fatal(err)
-	}
-}
+// +k8s:openapi-gen=true
+// +k8s:deepcopy-gen=package,register
+// +k8s:conversion-gen=github.com/guobingithub/cus-apiserver/pkg/apis/animal
+// +k8s:defaulter-gen=TypeMeta
+// +groupName=animal.skai.io
+package v1alpha1 // import "github.com/guobingithub/cus-apiserver/pkg/apis/animal/v1alpha1"
