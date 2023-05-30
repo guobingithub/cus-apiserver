@@ -40,6 +40,11 @@ type Cat struct {
 	Status CatStatus `json:"status,omitempty"`
 }
 
+func (in *Cat) DeepCopyObject() runtime.Object {
+	//TODO implement me
+	panic("implement me")
+}
+
 // CatList
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type CatList struct {
@@ -47,6 +52,11 @@ type CatList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 
 	Items []Cat `json:"items"`
+}
+
+func (in *CatList) DeepCopyObject() runtime.Object {
+	//TODO implement me
+	panic("implement me")
 }
 
 // CatSpec defines the desired state of Cat
