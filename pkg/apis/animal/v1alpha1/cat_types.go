@@ -124,6 +124,7 @@ func (in *CatList) DeepCopyInto(out *CatList) {
 
 // CatSpec defines the desired state of Cat
 type CatSpec struct {
+	Name string `json:"name"`
 }
 
 var _ resource.Object = &Cat{}
@@ -158,8 +159,11 @@ func (in *Cat) IsStorageVersion() bool {
 }
 
 func (in *Cat) Validate(ctx context.Context) field.ErrorList {
-	// TODO(user): Modify it, adding your API validation here.
-	return nil
+	allErrs := field.ErrorList{}
+	if len(in.Spec.Name) == 0 {
+		allErrs = append(allErrs, field.Invalid(field.NewPath("spec", "name"), in.Spec.Name, "must be specify"))
+	}
+	return allErrs
 }
 
 var _ resource.ObjectList = &CatList{}
